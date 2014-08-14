@@ -155,7 +155,7 @@ core_recv(struct context *ctx, struct conn *conn)
 {
     rstatus_t status;
 
-    status = conn->recv(ctx, conn);
+    status = conn->recv(ctx, conn); // 调用connection的recv()接口
     if (status != NC_OK) {
         log_debug(LOG_INFO, "recv on %c %d failed: %s",
                   conn->client ? 'c' : (conn->proxy ? 'p' : 's'), conn->sd,
@@ -170,7 +170,7 @@ core_send(struct context *ctx, struct conn *conn)
 {
     rstatus_t status;
 
-    status = conn->send(ctx, conn);
+    status = conn->send(ctx, conn);  // 调用connection的send()接口
     if (status != NC_OK) {
         log_debug(LOG_INFO, "send on %c %d failed: %s",
                   conn->client ? 'c' : (conn->proxy ? 'p' : 's'), conn->sd,
