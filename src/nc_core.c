@@ -270,6 +270,11 @@ core_timeout(struct context *ctx)
     }
 }
 
+
+// 当事件触发时被调用
+// @arg: connection对象
+// @events: 触发的事件(可读/可写)
+
 rstatus_t
 core_core(void *arg, uint32_t events)
 {
@@ -289,16 +294,16 @@ core_core(void *arg, uint32_t events)
     }
 
     /* read takes precedence over write */
-    if (events & EVENT_READ) {
-        status = core_recv(ctx, conn);
+    if (events & EVENT_READ) { // 当连接可读
+        status = core_recv(ctx, conn); // 开始接收数据
         if (status != NC_OK || conn->done || conn->err) {
             core_close(ctx, conn);
             return NC_ERROR;
         }
     }
 
-    if (events & EVENT_WRITE) {
-        status = core_send(ctx, conn);
+    if (events & EVENT_WRITE) { // 当连接可写
+        status = core_send(ctx, conn); // 开始写数据
         if (status != NC_OK || conn->done || conn->err) {
             core_close(ctx, conn);
             return NC_ERROR;

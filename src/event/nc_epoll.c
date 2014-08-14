@@ -30,13 +30,13 @@ event_base_create(int nevent, event_cb_t cb)
 
     ASSERT(nevent > 0);
 
-    ep = epoll_create(nevent);
+    ep = epoll_create(nevent);  // 创建epoll句柄
     if (ep < 0) {
         log_error("epoll create of size %d failed: %s", nevent, strerror(errno));
         return NULL;
     }
 
-    event = nc_calloc(nevent, sizeof(*event));
+    event = nc_calloc(nevent, sizeof(*event)); // 创建events数组
     if (event == NULL) {
         status = close(ep);
         if (status < 0) {
