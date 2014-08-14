@@ -87,6 +87,7 @@ event_base_destroy(struct event_base *evb)
     nc_free(evb);
 }
 
+// 监听读事件
 int
 event_add_in(struct event_base *evb, struct conn *c)
 {
@@ -122,6 +123,7 @@ event_del_in(struct event_base *evb, struct conn *c)
     return 0;
 }
 
+// 监听写事件
 int
 event_add_out(struct event_base *evb, struct conn *c)
 {
